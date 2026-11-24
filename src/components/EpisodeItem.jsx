@@ -1,17 +1,23 @@
-function EpisodeItem({ title, rating, duration }){
-  let votes = 0;
+
+import { useState } from "react";
+
+function EpisodeItem({ title, rating, duration }) {
+  const [votes, setVotes] = useState(0);
 
   const addVote = () => {
-    votes = votes + 1;
-    console.log("votes:", votes);
+    setVotes(votes + 1);
+    console.log("votes:", votes + 1);
   };
 
   return (
     <li className="episode">
       <span className="episode__title">{title}</span>
+
       <span className="episode__info">
-        <span className="episode__rating">★ {rating}</span> · {duration} דק'
+        <span className="episode__rating">★ {rating}</span>
+        {" · "}{duration} דק'
       </span>
+
       <button className="episode__vote" onClick={addVote}>
         👍 {votes}
       </button>
