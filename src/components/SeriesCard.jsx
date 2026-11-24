@@ -1,23 +1,24 @@
-
 import { useState } from "react";
 import SeasonList from "./SeasonList.jsx";
 
 function SeriesCard({
+  id,
   title,
   genre,
   startYear,
   creator,
   ended,
   nextYear,
-  seasons
+  seasons,
+  isSaved,
+  onToggleSaved
 }) {
-  const [saved, setSaved] = useState(false);
   const [showSeasons, setShowSeasons] = useState(false);
 
   return (
     <article
       className={
-        saved
+        isSaved
           ? "series-card series-card--saved"
           : "series-card"
       }
@@ -26,9 +27,13 @@ function SeriesCard({
         <h2 className="series-card__title">{title}</h2>
 
         {ended ? (
-          <span className="badge badge--ended">הסתיימה</span>
+          <span className="badge badge--ended">
+            הסתיימה
+          </span>
         ) : (
-          <span className="badge badge--running">משודרת</span>
+          <span className="badge badge--running">
+            משודרת
+          </span>
         )}
       </div>
 
@@ -51,16 +56,18 @@ function SeriesCard({
       <div className="series-card__actions">
         <button
           className="btn"
-          onClick={() => setSaved(!saved)}
+          onClick={() => onToggleSaved(id)}
         >
-          {saved ? "★ שמורה" : "☆ לשמור"}
+          {isSaved ? "★ שמורה" : "☆ לשמור"}
         </button>
 
         <button
           className="btn"
           onClick={() => setShowSeasons(!showSeasons)}
         >
-          {showSeasons ? "הסתר פרקים" : "הצג פרקים"}
+          {showSeasons
+            ? "הסתר פרקים"
+            : "הצג פרקים"}
         </button>
       </div>
 

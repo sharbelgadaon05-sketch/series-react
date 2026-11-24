@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import Header from "./components/Header.jsx";
@@ -9,6 +8,16 @@ import { platform, series } from "./data/series.js";
 function App() {
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [sortByYear, setSortByYear] = useState(false);
+
+  const [savedSeries, setSavedSeries] = useState([]);
+
+  function toggleSaved(id) {
+    setSavedSeries((prev) =>
+      prev.includes(id)
+        ? prev.filter((seriesId) => seriesId !== id)
+        : [...prev, id]
+    );
+  }
 
   let displayedSeries = series;
 
@@ -29,6 +38,7 @@ function App() {
       <Header
         platform={platform}
         count={series.length}
+        savedCount={savedSeries.length}
       />
 
       <main className="page">
@@ -60,7 +70,11 @@ function App() {
           הסדרות ({displayedSeries.length})
         </h2>
 
-        <SeriesList series={displayedSeries} />
+        <SeriesList
+          series={displayedSeries}
+          savedSeries={savedSeries}
+          onToggleSaved={toggleSaved}
+        />
       </main>
     </>
   );

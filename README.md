@@ -1,16 +1,30 @@
-# React + Vite
+# SeriesHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+SeriesHub היא מערכת להצגת סדרות טלוויזיה, צפייה בפרטי הסדרות, הצגת עונות ופרקים, שמירת סדרות ומיון וסינון לפי שנה וזמינות.
 
-Currently, two official plugins are available:
+## איך מריצים את הפרויקט?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. פותחים את תיקיית הפרויקט בטרמינל.
+2. מתקינים את החבילות:
+   ```bash
+   npm install
+   ```
+3. מפעילים את שרת הפיתוח:
+   ```bash
+   npm run dev
+   ```
+4. פותחים בדפדפן את הכתובת שמופיעה בטרמינל.
 
-## React Compiler
+## שאלות ותשובות
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. בתקלה #3 הקונסול הראה שהמשתנה votes כן גדל. למה המסך לא השתנה, ומה useState עושה אחרת?
 
-## Expanding the Oxlint configuration
+המשתנה `votes` השתנה בזיכרון, אבל React לא ידע שהוא צריך לעדכן את המסך. שינוי של משתנה רגיל לא גורם לרינדור מחדש של הקומפוננטה. לעומת זאת, `useState` שומר את הערך כחלק מהמצב של הקומפוננטה, וכאשר משתמשים בפונקציה `setVotes` כדי לשנות אותו, React מרנדר את הקומפוננטה מחדש ומציג את הערך המעודכן.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 2. איזה key בחרתם ב־SeriesList, ולמה לא כדאי להשתמש במיקום של הסדרה במערך (index)?
+
+בחרנו להשתמש ב־`item.id` בתור `key`, כי לכל סדרה יש מזהה ייחודי וקבוע. לא כדאי להשתמש ב־`index`, כי כאשר מסננים או ממיינים את הרשימה, המיקום של הסדרות יכול להשתנות. שימוש ב־index עלול לגרום ל־React לזהות בטעות סדרה אחת בתור סדרה אחרת.
+
+### 3. בחלק C3 — למה מיינתם עותק, ומה היה קורה למערך series אם הייתם ממיינים אותו עצמו?
+
+מיינו עותק של המערך באמצעות `[...displayedSeries]`, כדי לא לשנות את המערך המקורי `series`. הפונקציה `sort()` משנה את המערך שעליו מפעילים אותה. אם היינו ממיינים ישירות את `series`, הסדר המקורי של הסדרות היה משתנה, וזה עלול להשפיע על חלקים אחרים בפרויקט שמשתמשים באותו מערך.
