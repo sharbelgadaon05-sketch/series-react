@@ -11,13 +11,14 @@ function SeasonList({ seasons }) {
               עונה {season.number} · {season.episodes.length} פרקים
             </h3>
             <ul className="episode-list">
-              {season.episodes.map(episode => (
-                <EpisodeItem
-                  title={episode.title}
-                  rating={episode.rating}
-                  duration={episode.duration}
-                />
-              ))}
+      {season.episodes.map(episode => (
+      <EpisodeItem
+       key={episode.id}
+       title={episode.title}
+       rating={episode.rating}
+       duration={episode.duration}
+     />
+    ))}
             </ul>
           </div>
         ))}
