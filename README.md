@@ -1,30 +1,45 @@
 # SeriesHub
 
-SeriesHub היא מערכת להצגת סדרות טלוויזיה, צפייה בפרטי הסדרות, הצגת עונות ופרקים, שמירת סדרות ומיון וסינון לפי שנה וזמינות.
+SeriesHub is a web application for displaying TV series and their information.  
+The system allows users to view series details, seasons and episodes, save series, and sort or filter series by year and availability.
 
-## איך מריצים את הפרויקט?
+## Running the Project
 
-1. פותחים את תיקיית הפרויקט בטרמינל.
-2. מתקינים את החבילות:
-   ```bash
-   npm install
-   ```
-3. מפעילים את שרת הפיתוח:
-   ```bash
-   npm run dev
-   ```
-4. פותחים בדפדפן את הכתובת שמופיעה בטרמינל.
+To run the project locally:
 
-## שאלות ותשובות
+1. Open the project folder in the terminal.
+2. Install the required packages:
 
-### 1. בתקלה #3 הקונסול הראה שהמשתנה votes כן גדל. למה המסך לא השתנה, ומה useState עושה אחרת?
+```bash
+npm install
+```
 
-המשתנה `votes` השתנה בזיכרון, אבל React לא ידע שהוא צריך לעדכן את המסך. שינוי של משתנה רגיל לא גורם לרינדור מחדש של הקומפוננטה. לעומת זאת, `useState` שומר את הערך כחלק מהמצב של הקומפוננטה, וכאשר משתמשים בפונקציה `setVotes` כדי לשנות אותו, React מרנדר את הקומפוננטה מחדש ומציג את הערך המעודכן.
+3. Start the development server:
 
-### 2. איזה key בחרתם ב־SeriesList, ולמה לא כדאי להשתמש במיקום של הסדרה במערך (index)?
+```bash
+npm run dev
+```
 
-בחרנו להשתמש ב־`item.id` בתור `key`, כי לכל סדרה יש מזהה ייחודי וקבוע. לא כדאי להשתמש ב־`index`, כי כאשר מסננים או ממיינים את הרשימה, המיקום של הסדרות יכול להשתנות. שימוש ב־index עלול לגרום ל־React לזהות בטעות סדרה אחת בתור סדרה אחרת.
+4. Open the address shown in the terminal in your browser.
 
-### 3. בחלק C3 — למה מיינתם עותק, ומה היה קורה למערך series אם הייתם ממיינים אותו עצמו?
+## Questions & Answers
 
-מיינו עותק של המערך באמצעות `[...displayedSeries]`, כדי לא לשנות את המערך המקורי `series`. הפונקציה `sort()` משנה את המערך שעליו מפעילים אותה. אם היינו ממיינים ישירות את `series`, הסדר המקורי של הסדרות היה משתנה, וזה עלול להשפיע על חלקים אחרים בפרויקט שמשתמשים באותו מערך.
+### Why didn't the screen update when `votes` changed?
+
+The `votes` variable changed in memory, but React did not know that the value had changed, so it did not update the screen.
+
+`useState` is used to store data as part of the component's state. When we change the value using `setVotes`, React knows that the state changed and renders the component again with the updated value.
+
+### Why did we use `item.id` as the `key` in `SeriesList`?
+
+We used `item.id` because every series has a unique and stable ID.
+
+Using the array index as a `key` is not recommended because the position of an item can change when the list is sorted or filtered. This can cause React to identify the wrong item and lead to unexpected behavior.
+
+### Why did we sort a copy of the array in C3?
+
+We used `[...displayedSeries]` to create a copy before sorting.
+
+The `sort()` function changes the original array. If we sorted `series` directly, the original order of the series would change, which could affect other parts of the application that use the same array.
+
+By sorting a copy, we keep the original `series` array unchanged.
