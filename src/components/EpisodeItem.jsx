@@ -1,4 +1,4 @@
-function EpisodeItem(title, rating, duration) {
+function EpisodeItem({ title, rating, duration }){
   let votes = 0;
 
   const addVote = () => {
