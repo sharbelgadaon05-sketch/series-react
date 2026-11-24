@@ -1,6 +1,6 @@
 
 import Header from "./components/Header.jsx";
-import SeriesCard from "./components/SeriesCard.jsx";
+import SeriesList from "./components/SeriesList.jsx";
 import { platform, series } from "./data/series.js";
 
 function App() {
@@ -11,16 +11,12 @@ function App() {
         count={series.length}
       />
 
-      <main>
-        <SeriesCard
-          title="Code Red"
-          genre="Thriller"
-          startYear={2020}
-          creator="Noam Shalev"
-          ended={true}
-          nextYear={undefined}
-          seasons={series[2].seasons}
-        />
+      <main className="page">
+        <h2 className="page__title">
+          הסדרות ({series.length})
+        </h2>
+
+        <SeriesList series={series} />
       </main>
     </>
   );
